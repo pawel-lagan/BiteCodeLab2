@@ -1,0 +1,8 @@
+-wszystkie zamowienia uzytkownika
+-wszystkie rzeczy zamowione przez uzytkownika
+-rzeczy najczesciej zamawiane
+-uzytkowników ktorzy zamowili najwiecej rzeczy
+-uzytkownikow ktorzy zrobili najwiecej zamowien
+-testy z wykorzystaniem DBUnit
+
+mail: surmab@tt.com.pl
