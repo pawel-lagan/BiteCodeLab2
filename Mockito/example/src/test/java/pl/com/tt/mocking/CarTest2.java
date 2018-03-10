@@ -16,9 +16,10 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import info.solidsoft.mockito.java8.api.WithBDDMockito;
 import pl.com.tt.mocking.Engine.EngineError;
 
-public class CarTest2 implements WithAssertions {
+public class CarTest2 implements WithAssertions, WithBDDMockito {
     private static final Long TEST_PARAM_VALUE = 5L;
 
     @Rule

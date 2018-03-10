@@ -16,13 +16,14 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import info.solidsoft.mockito.java8.api.WithBDDMockito;
 import pl.com.tt.mocking.Engine.EngineError;
 
-public class CarTest implements WithAssertions {
+public class CarTest implements WithAssertions, WithBDDMockito {
 
     @Test
     public void shouldBeReadyToStart() {
-    }
+    }   
 
     @Test
     public void shouldNotBeReadyToStartWhenEngineErrors() {
