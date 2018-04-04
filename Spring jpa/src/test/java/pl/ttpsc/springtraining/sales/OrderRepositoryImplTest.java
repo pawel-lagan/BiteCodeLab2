@@ -1,13 +1,9 @@
 package pl.ttpsc.springtraining.sales;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 import java.util.Collection;
-
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,21 +33,11 @@ public class OrderRepositoryImplTest extends AbstractIntegrationTest {
 		customer = customerService.findByEmail("jan.kowalski@example.com").orElse(null);
 		product = productService.findByName("Monitor").orElse(null);
 	}
-	
-	@Test
-        public void orderOps() {
-	    fail("implement experiments with jpa");
-	}
-	
-	@Test
-        public void orderFetchAtOnce() {
-	    fail("implement experiments with jpa");
-	}
 
 	@Test
 	public void newOrderShouldBePresisted() {
 		Order order = createTestOrder();
-		
+
 		Collection<Order> result = orderRepository.findAllByCustomerAndProductCustom(customer, product);
 		assertThat(result).contains(order).hasSize(2);
 	}
@@ -67,7 +53,6 @@ public class OrderRepositoryImplTest extends AbstractIntegrationTest {
 	private Order createTestOrder() {
 		Order order = orderService.createNewOrder(customer);
 		order.addPosition(OrderPosition.newInstance(product, BigDecimal.ONE));
-		orderRepository.save(order);
 		return order;
 	}
 }

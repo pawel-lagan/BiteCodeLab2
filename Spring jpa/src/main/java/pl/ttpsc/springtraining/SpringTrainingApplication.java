@@ -31,6 +31,7 @@ import pl.ttpsc.springtraining.sales.OrderService;
 @EnableJpaRepositories(basePackages = "pl.ttpsc.springtraining", repositoryImplementationPostfix = "Impl")
 @EnableWebMvc
 @EnableTransactionManagement
+// @EnableCaching
 @ComponentScan({ "pl.ttpsc.springtraining" })
 public class SpringTrainingApplication {
 

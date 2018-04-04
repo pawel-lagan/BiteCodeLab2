@@ -2,15 +2,10 @@ package pl.ttpsc.hibernate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +19,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
+import pl.ttpsc.ParallelTransactionSimulation;
 import pl.ttpsc.springtraining.customer.Customer;
 
 @RunWith(SpringRunner.class)
@@ -36,7 +32,6 @@ public class TransactionsIsolationLevelTest {
 	@Autowired
 	private TransactionsSerializableDemo demo2;
 
-	@Ignore
 	@Test
 	@DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
 	public void shouldSeeCommitedChanges() throws Exception {
@@ -47,7 +42,6 @@ public class TransactionsIsolationLevelTest {
 		assertThat(findAll).hasSize(2).extracting(Customer::getLastName).contains(AAAA, "TestowyXX");
 	}
 
-	@Ignore
 	@Test
 	@DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
 	public void shouldSeeSerialized() throws Exception {
@@ -57,40 +51,8 @@ public class TransactionsIsolationLevelTest {
 	}
 
 	@Slf4j
-	private abstract static class TransactionDemo {
-		protected List<Customer> result = Collections.emptyList();
-
-		public abstract void doT1() throws InterruptedException;
-
-		public abstract void doT2() throws InterruptedException;
-
-		public List<Customer> run(TransactionDemo x) throws InterruptedException {
-			ExecutorService executor = Executors.newFixedThreadPool(2);
-			executor.submit(() -> {
-				try {
-					x.doT1();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			});
-			executor.submit(() -> {
-				try {
-					x.doT2();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			});
-
-			executor.shutdown();
-			executor.awaitTermination(100000, TimeUnit.MILLISECONDS);
-
-			return result;
-		}
-	}
-
-	@Slf4j
 	@Component
-	public static class TransactionsComittedDemo extends TransactionDemo {
+	public static class TransactionsComittedDemo extends ParallelTransactionSimulation {
 		@Autowired
 		private SessionFactory sf;
 
@@ -138,7 +100,7 @@ public class TransactionsIsolationLevelTest {
 	}
 
 	@Component
-	public static class TransactionsSerializableDemo extends TransactionDemo {
+	public static class TransactionsSerializableDemo extends ParallelTransactionSimulation {
 		@Autowired
 		private SessionFactory sf;
 

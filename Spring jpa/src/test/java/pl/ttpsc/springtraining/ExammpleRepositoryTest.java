@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 import pl.ttpsc.springtraining.customer.Customer;
 import pl.ttpsc.springtraining.customer.CustomerRepository;
 
-public class ExampleRepositoryTest extends AbstractIntegrationTest implements WithAssertions {
+public class ExammpleRepositoryTest extends AbstractIntegrationTest implements WithAssertions {
 
     @Component
     public static class MyRepo  {

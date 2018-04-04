@@ -2,6 +2,8 @@ package pl.ttpsc.dataloader;
 
 import java.math.BigDecimal;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,7 +25,7 @@ public class ApplicationDataLoader implements InitializingBean {
 	@Autowired
 	private OrderRepository orderRepository;
 
-	// @PostConstruct
+	@PostConstruct
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void prepareAllRequiredData() {
 		Product product1 = Product.newInstance("Laptop", "Laptop", BigDecimal.TEN);
@@ -51,7 +53,6 @@ public class ApplicationDataLoader implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		prepareAllRequiredData();
+		// prepareAllRequiredData();
 	}
-
 }

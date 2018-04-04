@@ -8,7 +8,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,6 +46,7 @@ public class Order implements AppEntity {
 
 	@Setter(AccessLevel.PRIVATE)
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	@ElementCollection
 	private Set<OrderPosition> positions;
 
 	public static Order newInstance(@NonNull Customer customer) {
