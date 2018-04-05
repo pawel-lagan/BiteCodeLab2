@@ -29,6 +29,8 @@ public class DTOExampleTest extends AbstractIntegrationTest {
 
 	@Test
 	public void shouldReturnDTO() {
+	    List<OrderDTO> list = orderRepository.getDTOByCustomer2(customer);
+	    assertThat(list).isNotEmpty().extracting(OrderDTO::getFirstName).contains("Jan");
 	}
 
 	@Test

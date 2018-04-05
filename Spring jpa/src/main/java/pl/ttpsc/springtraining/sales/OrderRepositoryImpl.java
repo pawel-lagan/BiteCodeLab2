@@ -53,4 +53,14 @@ public class OrderRepositoryImpl implements OrderRepositoryCustomized {
 		query.setParameter("customer", customer);
 		return query.getResultList();
 	}
+	
+        public List<OrderDTO> getDTOByCustomer2(Customer customer) {
+                TypedQuery<OrderDTO> query = em.createQuery(
+                                "SELECT new pl.ttpsc.springtraining.sales.OrderDTO(o.customer.firstName, o.customer.lastName) "
+            + "FROM Order o WHERE o.customer = :customer",
+                                OrderDTO.class);
+                query.setParameter("customer", customer);
+                return query.getResultList();
+        }
+
 }

@@ -4,4 +4,17 @@
         timeToIdleSeconds="10000" timeToLiveSeconds="60000" overflowToDisk="false"
         memoryStoreEvictionPolicy="LRU" statistics="true">
     </defaultCache>
+    
+    <cache name="org.hibernate.cache.internal.StandardQueryCache"
+        maxElementsInMemory="40000" 
+        eternal="false" 
+        timeToIdleSeconds="14400"
+		timeToLiveSeconds="604800"
+        overflowToDisk="false" />
+ 
+    <cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
+        maxElementsInMemory="20000000" 
+        eternal="true" 
+        overflowToDisk="false" />
+        
 </ehcache>
