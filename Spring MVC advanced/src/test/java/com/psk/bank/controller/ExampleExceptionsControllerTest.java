@@ -1,7 +1,8 @@
 package com.psk.bank.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -12,21 +13,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ExercisesRedirectControllerTest {
+public class ExampleExceptionsControllerTest {
 
-	@Autowired
-	private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-	@Test
-	public void shouldRedirectToRegisterUserPage() throws Exception {
-
-		mockMvc.perform(post("/redirect/register").param("id", "35").param("name", "Jan"))
-				.andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/redirect/showProfile/35"));
-	}
-
+    @Test
+    public void shouldRedirectToView() throws Exception {
+        mockMvc.perform(get("/throw-1")).andExpect(status().isInternalServerError())
+                .andExpect(content().string(containsString("EXC")));
+    }
 }

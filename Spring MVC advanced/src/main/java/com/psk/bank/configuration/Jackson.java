@@ -9,9 +9,11 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.oxm.xstream.XStreamMarshaller;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.psk.bank.handlersinterceptors.LoggerInterceptor;
 import com.psk.bank.serializers.LocalDateDeserializer;
 import com.psk.bank.serializers.LocalDateSerializer;
 
@@ -25,7 +27,9 @@ public class Jackson extends WebMvcConfigurerAdapter {
  
         
     	//converters.add(new CustomHttpMessageConverter());
-        // converters.add(createXmlHttpMessageConverter());
+        //converters.add(createXmlHttpMessageConverter());
+    	//converters.add(new YamlHttpMessageConverter());
+    	
     	
         super.configureMessageConverters(converters);
     
@@ -46,6 +50,18 @@ public class Jackson extends WebMvcConfigurerAdapter {
         
         
         return xmlConverter;
+    }
+    
+    
+    /*@Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new StringToUserConverter());
+    }*/
+    
+    
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoggerInterceptor());
     }
     
     

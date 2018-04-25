@@ -1,5 +1,6 @@
 package com.psk.bank.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
@@ -7,14 +8,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.psk.bank.model.User;
+import com.psk.bank.repository.UserRepository;
+
 @Controller
 public class ExampleRedirectsController {
 
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	
     @GetMapping(value = "/do-and-redirect-1")
     public ModelAndView doAndRedirect1() {
         return new ModelAndView("redirect:/destination");
@@ -40,7 +52,6 @@ public class ExampleRedirectsController {
     
     ////////////
     
-    
 
     @PostMapping(value = "/consume-produce-example", produces = MediaType.TEXT_PLAIN_VALUE, consumes = MediaType.TEXT_PLAIN_VALUE)
     public @ResponseBody String consumeTextProduceTextExample(@RequestBody String input) {
@@ -48,15 +59,17 @@ public class ExampleRedirectsController {
     }
     
     
-    @PostMapping(value = "/consume-produce-example2", produces = MediaType.APPLICATION_PDF_VALUE, consumes = MediaType.APPLICATION_PDF_VALUE)
-    public @ResponseBody String consumeProduceExample2(@RequestBody String input) {
-        return input + " and output";
+    @PutMapping(value = "/updateResource", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody User updateResource(@RequestBody User input) {
+        return input;
     }
+    
+    
 
-    @PostMapping(value = "/consume-produce-entity-example", produces = MediaType.TEXT_PLAIN_VALUE, consumes = MediaType.TEXT_PLAIN_VALUE)
+    @PostMapping(value = "/consume-produce-entity-example", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> consumeProduceExampleWithEntites(RequestEntity<String> input) {
 
-        return ResponseEntity.ok(input.getBody() + " and output");
+        return ResponseEntity.ok("consume xml");
     }
 
     /////////Response Status
@@ -76,14 +89,16 @@ public class ExampleRedirectsController {
     	
     }
     
-    //@ResponseStatus(code = HttpStatus.I_AM_A_TEAPOT)
-    @PostMapping(value = "/response-status-with-exception", produces = MediaType.TEXT_PLAIN_VALUE, consumes = MediaType.TEXT_PLAIN_VALUE)
-    public @ResponseBody String responseStatusException(@RequestBody String input) throws Exception {
-        throw new CustomException("nothing");
-    }
-
+    
+	@RequestMapping(value = "/response-status-exception-example", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> responseStatusExampleWithException() throws CustomException {
+		throw new CustomException("exception");
+	}
     
     /////
+    
     
     
     @ResponseStatus(code = HttpStatus.I_AM_A_TEAPOT)

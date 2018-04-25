@@ -4,10 +4,8 @@ import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,8 +50,6 @@ public class ExampleController {
 	}
 	
 
-	
-
 
 	@PostMapping("/registerUser")
 	public String registerUser(Model model, @RequestParam(value = "id", required = false) Long id,
@@ -89,9 +85,8 @@ public class ExampleController {
 	}
 	
 	
+	
 
-
-	/////////////////////////////@ResponseBody
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public @ResponseBody String addUser(@RequestParam(value = "id", required = false) Long id,
@@ -112,12 +107,8 @@ public class ExampleController {
 	@RequestMapping(value = "/getUserWithGivenId/{id}", method = RequestMethod.GET)
 	public @ResponseBody User getUserWithGivenId(@PathVariable("id") Long id) throws ResourceNotFoundException {
 
-		User user = userRepository.findOne(id);
-		
-		return user;
+		return userRepository.findOne(id);
 	}
-	
-	
 	
 	
 	@PostMapping(value = "/addUserWithRequestBody")
@@ -125,12 +116,5 @@ public class ExampleController {
 		userRepository.save(user);
 		return "User added successfully";
 	}
-
-	@GetMapping("/getUserWithGivenIdRequestParam")
-	public @ResponseBody User reqParam(Model model, @RequestParam(value = "id", required = true) Long id) {
-
-		return userRepository.findOne(id);
-	}
-	
 	
 }

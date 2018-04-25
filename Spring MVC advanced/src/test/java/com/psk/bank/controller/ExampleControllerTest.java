@@ -30,6 +30,7 @@ import com.psk.bank.model.User;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+// @ActiveProfiles("WithoutBoot")
 public class ExampleControllerTest {
 
 	@Autowired
