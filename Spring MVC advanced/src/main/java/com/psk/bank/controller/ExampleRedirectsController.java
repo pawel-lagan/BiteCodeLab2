@@ -69,7 +69,13 @@ public class ExampleRedirectsController {
     @PostMapping(value = "/consume-produce-entity-example", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> consumeProduceExampleWithEntites(RequestEntity<String> input) {
 
-        return ResponseEntity.ok("consume xml");
+        return ResponseEntity.ok("produce xml");
+    }
+    
+    @PostMapping(value = "/consume-produce-entity-example", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> consumeProduceWithEntites(RequestEntity<String> input) {
+
+        return ResponseEntity.ok("produce json");
     }
 
     /////////Response Status
