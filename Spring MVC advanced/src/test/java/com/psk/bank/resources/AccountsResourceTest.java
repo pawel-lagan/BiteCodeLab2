@@ -22,14 +22,6 @@ public class AccountsResourceTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    public void shouldReturnAccount() throws Exception {
-        mockMvc.perform(get("/accounts/ABC1"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.accountNumber", is("ABC1")))
-            .andExpect(jsonPath("$.firstName", is("Jan")))
-            .andExpect(jsonPath("$.creationTs", is("2017-01-02T21:32:00")));
-    }
 
     @Test
     public void shouldParseLocalDate() throws Exception {

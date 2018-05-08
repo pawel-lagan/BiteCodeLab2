@@ -65,16 +65,6 @@ public class ExampleClientTest {
         assertThat(response.getBody().getId()).isEqualTo(2);
     }
     
-    @Test
-    public void requestParamShouldReturnUserWithId() {
-
-        ResponseEntity<User> response = restTemplate.exchange(url + "getUserWithGivenIdRequestParam?id={id}", HttpMethod.GET, null,
-                User.class, 2);
-
-        assertThat(response).isNotNull();
-        assertThat(response.getStatusCodeValue()).isEqualTo(200);
-        assertThat(response.getBody().getId()).isEqualTo(2);
-    }
     
 
     @Test

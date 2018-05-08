@@ -19,14 +19,6 @@ import com.psk.bank.repository.AccountRepository;
 @RestController
 public class AccountsResource {
 
-    @Autowired
-    private AccountRepository accountRepository;
-
-    @GetMapping("/{accountNumber}")
-    public Account getAccount(@PathVariable String accountNumber) {
-        return accountRepository.findOne(accountNumber);
-    }
-
     @GetMapping("/added-since/{since}")
     public String showAddedSince(@PathVariable("since") LocalDate since) {
         return "added-since " + since.toString();
