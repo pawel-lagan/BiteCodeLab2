@@ -20,7 +20,8 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter {
 
 	      
 	    logger.info("----------------");
-	    
+	    long startTime = System.currentTimeMillis();
+		request.setAttribute("startTime", startTime);
 	    
 		logger.info(request.getMethod() + " " + request.getRequestURI());
 
@@ -46,7 +47,12 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter {
 	/*	if(modelAndView!=null) {
 		logger.info(modelAndView.getViewName()+" "+modelAndView.getModel());
 		}*/
+		long startTime = (Long)request.getAttribute("startTime");
+		long endTime = System.currentTimeMillis();
+
+		long executeTime = endTime - startTime;
 		
+		logger.info("Execute Time: "+executeTime+" ms");
 	}
 	
 	

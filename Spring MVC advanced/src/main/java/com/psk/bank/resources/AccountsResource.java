@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.psk.bank.model.Account;
-import com.psk.bank.repository.AccountRepository;
-
 @RequestMapping(value = "/accounts")
 @RestController
 public class AccountsResource {
+
 
     @GetMapping("/added-since/{since}")
     public String showAddedSince(@PathVariable("since") LocalDate since) {
@@ -29,7 +26,7 @@ public class AccountsResource {
         return "added-since-ts " + since.toString();
     }
 
-
+    
     @Component
     public static class StringToLocalDateConverter implements Converter<String, LocalDate> {
 
@@ -47,5 +44,6 @@ public class AccountsResource {
             return LocalDateTime.parse(source, DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss"));
         }
     }
+    
 
 }

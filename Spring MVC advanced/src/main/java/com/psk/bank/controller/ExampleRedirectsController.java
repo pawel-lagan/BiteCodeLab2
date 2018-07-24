@@ -50,12 +50,19 @@ public class ExampleRedirectsController {
     }
     
     
-    ////////////
+    //////////// consume and produce attributes
     
 
-    @PostMapping(value = "/consume-produce-example", produces = MediaType.TEXT_PLAIN_VALUE, consumes = MediaType.TEXT_PLAIN_VALUE)
-    public @ResponseBody String consumeTextProduceTextExample(@RequestBody String input) {
-        return input + " consume Text";
+    @PostMapping(value = "/consume-produce-example", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String consumeJsonProduceXmlExample(@RequestBody String input) {
+        return "consume json";
+    }
+
+    
+    @PostMapping(value = "/consume-produce-entity-example", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> consumeProduceExampleWithEntites(RequestEntity<String> input) {
+
+        return ResponseEntity.ok("produce xml");
     }
     
     
@@ -64,13 +71,6 @@ public class ExampleRedirectsController {
         return input;
     }
     
-    
-
-    @PostMapping(value = "/consume-produce-entity-example", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> consumeProduceExampleWithEntites(RequestEntity<String> input) {
-
-        return ResponseEntity.ok("produce xml");
-    }
     
 
     /////////Response Status

@@ -65,7 +65,7 @@ public class ExampleClientTest {
         assertThat(response.getBody().getId()).isEqualTo(2);
     }
     
-    
+  
 
     @Test
     public void getWithPathVariableExampleShouldReturnUserWithDate() {
